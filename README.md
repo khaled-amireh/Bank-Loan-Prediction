@@ -1,6 +1,5 @@
 # Bank Loan Approval Prediction
 
-![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange)
 
 An end-to-end Machine Learning classification pipeline built in Python to evaluate bank loan application risks. By utilizing a **Support Vector Machine (SVM)** with a non-linear **Radial Basis Function (RBF)** kernel and balanced class weighting, this model effectively identifies high-risk borrowers and mitigates default risks for financial institutions.
 
