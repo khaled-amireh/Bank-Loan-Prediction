@@ -147,7 +147,7 @@ In lending, a missed default is a direct financial write-off, while a false alar
 
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 | Category | Tools |
 |---|---|
@@ -158,7 +158,7 @@ In lending, a missed default is a direct financial write-off, while a false alar
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 Bank-Loan-Approval-Prediction/
@@ -175,7 +175,7 @@ Bank-Loan-Approval-Prediction/
 
 ---
 
-## ⚙️ Installation
+##  Installation
 
 ```bash
 # 1. Clone the repository
@@ -195,7 +195,7 @@ jupyter notebook notebooks/bank_loan_approval_prediction.ipynb
 
 ---
 
-## ⚠️ Limitations
+##  Limitations
 
 - The model was evaluated on a single train/test split rather than cross-validated, so reported metrics may vary somewhat across different splits.
 - The decision threshold used to generate the headline Precision/Recall figures was not explicitly tuned — further gains on Class 1 Recall may be available by adjusting the classification threshold for a specific cost trade-off.
@@ -203,7 +203,7 @@ jupyter notebook notebooks/bank_loan_approval_prediction.ipynb
 
 ---
 
-## 🚀 Future Improvements
+##  Future Improvements
 
 - [ ] Explicit threshold tuning to optimize for a target cost function (cost of a missed default vs. cost of a false alarm)
 - [ ] Cross-validation for more robust performance estimates
@@ -213,7 +213,7 @@ jupyter notebook notebooks/bank_loan_approval_prediction.ipynb
 
 ---
 
-## 👤 Author
+##  Author
 
 **Khaled Amireh**
 [GitHub](https://github.com/khaled-amireh)
