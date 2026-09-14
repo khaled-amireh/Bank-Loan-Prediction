@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🏦 Bank Loan Approval Prediction
+#  Bank Loan Approval Prediction
 
 ### Modeling credit risk with a Kernel SVM (RBF)
 
@@ -18,7 +18,7 @@
 
 ---
 
-## 🎯 Project Overview
+##  Project Overview
 
 In commercial banking, approving a loan for an applicant who ultimately defaults (a **False Negative**) results in a direct loss of principal capital — a materially different cost than the inconvenience of an extra manual review on a false alarm. That asymmetry shapes every modeling decision in this project.
 
