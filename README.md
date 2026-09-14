@@ -136,12 +136,12 @@ Accuracy alone would be a misleading headline here: the dataset skews toward non
 
 ---
 
-## 💼 Business Key Takeaways
+##  Business Key Takeaways
 
 | Insight | Detail |
 |---|---|
-| 🎯 **Catching Default Risks** | With `class_weight='balanced'`, the model achieves **75% Recall on Class 1**, correctly flagging **1,087 of 1,445** high-risk applicants in the test set |
-| ⚖️ **Risk Mitigation vs. False Alarms** | The pipeline trades a modest amount of overall accuracy for a large reduction in missed defaults — down to just **358 False Negatives** — directly protecting the bank against capital loss |
+|  **Catching Default Risks** | With `class_weight='balanced'`, the model achieves **75% Recall on Class 1**, correctly flagging **1,087 of 1,445** high-risk applicants in the test set |
+|  **Risk Mitigation vs. False Alarms** | The pipeline trades a modest amount of overall accuracy for a large reduction in missed defaults — down to just **358 False Negatives** — directly protecting the bank against capital loss |
 
 In lending, a missed default is a direct financial write-off, while a false alarm typically just means an extra round of manual underwriting review. Given that asymmetry, trading some accuracy and precision for materially higher default recall is a rational, deliberate business trade-off — not a modeling shortcoming.
 
