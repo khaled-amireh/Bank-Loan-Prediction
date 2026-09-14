@@ -37,7 +37,7 @@ Traditional linear models often struggle to capture the **non-linear interaction
 
 ---
 
-## 📊 Dataset Overview
+##  Dataset Overview
 
 **Source:** [Credit Risk Dataset — Kaggle](https://www.kaggle.com/datasets/laotse/credit-risk-dataset)
 
@@ -69,7 +69,7 @@ Traditional linear models often struggle to capture the **non-linear interaction
 
 ---
 
-## 🔬 Technical Pipeline
+##  Technical Pipeline
 
 ```mermaid
 flowchart LR
