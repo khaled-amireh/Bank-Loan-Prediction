@@ -216,7 +216,6 @@ jupyter notebook notebooks/bank_loan_approval_prediction.ipynb
 ##  Author
 
 **Khaled Amireh**
-[GitHub](https://github.com/khaled-amireh)
 
 ---
 
