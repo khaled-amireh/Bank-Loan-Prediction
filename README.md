@@ -247,7 +247,7 @@ pie showData title Applicants who truly defaulted in the test set (1,445)
 
 | Category | Tools |
 |---|---|
-| Language | 🐍 Python |
+| Language |  Python |
 | Data Handling | Pandas, NumPy |
 | Machine Learning | Scikit-learn (Kernel SVM) |
 | Visualization | Matplotlib, Seaborn |
@@ -316,11 +316,10 @@ jupyter notebook notebooks/bank_loan_approval_prediction.ipynb
 
 ---
 
-## 👤 Author
+##  Author
 
 <p align="center">
   <b>Khaled Amireh</b><br/>
-  <a href="https://github.com/khaled-amireh">🔗 GitHub</a>
 </p>
 
 <p align="center"><i>If this project helped you, drop a ⭐ on the repo.</i></p>
