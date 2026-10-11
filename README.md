@@ -130,7 +130,7 @@ Checked the data distributions and found which columns had missing values, so th
 </details>
 
 <details>
-<summary><b>🩹 Step 3: Filling the blanks</b></summary>
+<summary><b> Step 3: Filling the blanks</b></summary>
 
 <br/>
 
@@ -139,7 +139,7 @@ Checked the data distributions and found which columns had missing values, so th
 </details>
 
 <details>
-<summary><b>🔢 Step 4: Turning words into numbers</b></summary>
+<summary><b> Step 4: Turning words into numbers</b></summary>
 
 <br/>
 
