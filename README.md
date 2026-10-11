@@ -153,7 +153,7 @@ A `ColumnTransformer` with `OneHotEncoder` converted these text columns into num
 </details>
 
 <details>
-<summary><b>📏 Step 5: Putting every feature on the same scale</b></summary>
+<summary><b> Step 5: Putting every feature on the same scale</b></summary>
 
 <br/>
 
@@ -162,7 +162,7 @@ A `ColumnTransformer` with `OneHotEncoder` converted these text columns into num
 </details>
 
 <details>
-<summary><b>🤖 Step 6: Training</b></summary>
+<summary><b> Step 6: Training</b></summary>
 
 <br/>
 
@@ -176,24 +176,24 @@ SVC(kernel='rbf', class_weight='balanced')
 
 ---
 
-## 🧠 Why an RBF Kernel SVM?
+##  Why an RBF Kernel SVM?
 
 Think of drawing a line between **safe** borrowers and **risky** ones on a map of applicants.
 
 | Approach | The tool | The catch |
 |---|---|---|
-| 📏 **Linear model** | A straight ruler | Real risk isn't straight: income, loan size, interest rate and debt ratio *interact* with each other |
-| 🪢 **RBF Kernel SVM** | A flexible rope | Bends around the data to follow curved, complex risk boundaries |
+|  **Linear model** | A straight ruler | Real risk isn't straight: income, loan size, interest rate and debt ratio *interact* with each other |
+|  **RBF Kernel SVM** | A flexible rope | Bends around the data to follow curved, complex risk boundaries |
 
 Add `class_weight='balanced'` and the rope gets pulled harder toward catching the rarer, costlier group: the defaulters.
 
 ---
 
-## 📈 Results
+##  Results
 
 Measured on the held-out test set.
 
-### 🏆 The Scoreboard
+###  The Scoreboard
 
 ```
 Overall Accuracy        ██████████████████░░  87.77%
