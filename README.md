@@ -67,12 +67,12 @@ That imbalance drives every decision in this project, including which metric get
 |  **Loan** | Loan Amount, Loan Intent (`EDUCATION`, `MEDICAL`, `VENTURE`, etc.), Interest Rate, Loan Grade, Percent of Income |
 |  **Credit history** | Default History (`Y`/`N`), Credit History Length |
 
-### 🎯 What we predict: `loan_status`
+###  What we predict: `loan_status`
 
 | Value | Meaning |
 |:---:|---|
-| `0` | ✅ Approved / Non-Default |
-| `1` | 🚩 Default / High Risk |
+| `0` |  Approved / Non-Default |
+| `1` |  Default / High Risk |
 
 <details>
 <summary><b>📋 Key feature glossary (click to expand)</b></summary>
