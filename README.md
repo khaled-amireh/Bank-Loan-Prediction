@@ -112,7 +112,7 @@ flowchart LR
 ```
 
 <details>
-<summary><b>🔍 Step 1: Explore the data</b></summary>
+<summary><b> Step 1: Explore the data</b></summary>
 
 <br/>
 
@@ -121,7 +121,7 @@ Checked the data distributions and found which columns had missing values, so th
 </details>
 
 <details>
-<summary><b>✂️ Step 2: Split first, to keep the exam honest</b></summary>
+<summary><b> Step 2: Split first, to keep the exam honest</b></summary>
 
 <br/>
 
