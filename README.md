@@ -63,9 +63,9 @@ That imbalance drives every decision in this project, including which metric get
 
 | Category | What it covers |
 |---|---|
-| 👤 **Applicant** | Age, Income, Employment Length, Home Ownership (`RENT`, `OWN`, `MORTGAGE`, `OTHER`) |
-| 💳 **Loan** | Loan Amount, Loan Intent (`EDUCATION`, `MEDICAL`, `VENTURE`, etc.), Interest Rate, Loan Grade, Percent of Income |
-| 📜 **Credit history** | Default History (`Y`/`N`), Credit History Length |
+|  **Applicant** | Age, Income, Employment Length, Home Ownership (`RENT`, `OWN`, `MORTGAGE`, `OTHER`) |
+|  **Loan** | Loan Amount, Loan Intent (`EDUCATION`, `MEDICAL`, `VENTURE`, etc.), Interest Rate, Loan Grade, Percent of Income |
+|  **Credit history** | Default History (`Y`/`N`), Credit History Length |
 
 ### 🎯 What we predict: `loan_status`
 
