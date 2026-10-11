@@ -213,7 +213,7 @@ Default F1-Score        ███████████████░░░�
 > [!IMPORTANT]
 > **Why Class 1 Recall is the star metric:** most applicants are non-defaulters, so a model that leaned toward "approve everyone" could post a high accuracy while quietly letting the riskiest borrowers through. That is the exact failure this project was built to avoid.
 
-### 🎯 Where did the 1,445 real defaulters go?
+###  Where did the 1,445 real defaulters go?
 
 ```mermaid
 pie showData title Applicants who truly defaulted in the test set (1,445)
@@ -221,7 +221,7 @@ pie showData title Applicants who truly defaulted in the test set (1,445)
     "Slipped through (False Negatives)" : 358
 ```
 
-### 🧮 Confusion Matrix
+###  Confusion Matrix
 
 <p align="center">
   <img src="images/confusion_matrix(SVM).png" alt="Confusion Matrix - Kernel SVM" width="600">
@@ -229,7 +229,7 @@ pie showData title Applicants who truly defaulted in the test set (1,445)
 
 ---
 
-## 💼 What This Means for the Bank
+##  What This Means for the Bank
 
 <table>
   <tr>
@@ -243,7 +243,7 @@ pie showData title Applicants who truly defaulted in the test set (1,445)
 
 ---
 
-## 🧰 Technologies Used
+##  Technologies Used
 
 | Category | Tools |
 |---|---|
@@ -254,7 +254,7 @@ pie showData title Applicants who truly defaulted in the test set (1,445)
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 Bank-Loan-Approval-Prediction/
@@ -271,7 +271,7 @@ Bank-Loan-Approval-Prediction/
 
 ---
 
-## ⚙️ Installation
+##  Installation
 
 ```bash
 # 1. Clone the repository
@@ -291,7 +291,7 @@ jupyter notebook notebooks/bank_loan_approval_prediction.ipynb
 
 ---
 
-## ⚠️ Limitations
+##  Limitations
 
 <details>
 <summary><b>Click to see what this model does not do (yet)</b></summary>
@@ -306,7 +306,7 @@ jupyter notebook notebooks/bank_loan_approval_prediction.ipynb
 
 ---
 
-## 🚀 Future Improvements
+##  Future Improvements
 
 - [ ] Tune the decision threshold against a real cost function (missed default vs. false alarm)
 - [ ] Add cross-validation for more robust estimates
