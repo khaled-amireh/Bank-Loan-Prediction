@@ -48,8 +48,8 @@ You work at a bank and a stranger asks to borrow money. If you say yes and they 
 
 | | The mistake | What happens | Cost to the bank |
 |:-:|---|---|---|
-| 💸 | **Approve someone who defaults** *(False Negative)* | The loan is never repaid | **Loses real money** (the principal) |
-| 🔍 | **Flag someone who would have repaid** *(False Alarm)* | An underwriter takes a second look | A bit of review time |
+|  | **Approve someone who defaults** *(False Negative)* | The loan is never repaid | **Loses real money** (the principal) |
+|  | **Flag someone who would have repaid** *(False Alarm)* | An underwriter takes a second look | A bit of review time |
 
 That imbalance drives every decision in this project, including which metric gets the spotlight.
 
