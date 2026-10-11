@@ -32,7 +32,7 @@
 
 ---
 
-## 🏦 The Loan Officer's Dilemma
+##  The Loan Officer's Dilemma
 
 > [!NOTE]
 > **In one sentence:** this project trains a Support Vector Machine to read a loan application and decide whether the applicant is **safe** or **likely to default**, and it correctly flags **75% of the people who would actually default** on data it has never seen.
