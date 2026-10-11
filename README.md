@@ -75,7 +75,7 @@ That imbalance drives every decision in this project, including which metric get
 | `1` |  Default / High Risk |
 
 <details>
-<summary><b>📋 Key feature glossary (click to expand)</b></summary>
+<summary><b> Key feature glossary (click to expand)</b></summary>
 
 <br/>
 
@@ -92,18 +92,18 @@ That imbalance drives every decision in this project, including which metric get
 
 ---
 
-## 🛠️ The Approval Pipeline
+##  The Approval Pipeline
 
 ```mermaid
 flowchart LR
-    A["📥 Load and inspect"] --> B["🔍 Explore the data"]
-    B --> C["✂️ Train/Test split<br/>80 / 20"]
-    C --> D["🩹 Fill missing values<br/>mean imputation"]
-    D --> E["🔢 One-Hot Encode<br/>text columns"]
-    E --> F["📏 StandardScaler"]
-    F --> G["🤖 Train Kernel SVM<br/>RBF, balanced"]
-    G --> H["📊 Evaluate"]
-    H --> I["💼 Business impact"]
+    A[" Load and inspect"] --> B[" Explore the data"]
+    B --> C[" Train/Test split<br/>80 / 20"]
+    C --> D[" Fill missing values<br/>mean imputation"]
+    D --> E[" One-Hot Encode<br/>text columns"]
+    E --> F[" StandardScaler"]
+    F --> G[" Train Kernel SVM<br/>RBF, balanced"]
+    G --> H[" Evaluate"]
+    H --> I[" Business impact"]
 
     classDef step fill:#172554,stroke:#60a5fa,color:#fff;
     classDef gold fill:#854d0e,stroke:#facc15,color:#fff;
