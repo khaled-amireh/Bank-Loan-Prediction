@@ -41,7 +41,7 @@
 You work at a bank and a stranger asks to borrow money. If you say yes and they never pay it back, the bank loses that money for good. If you say no to someone who *would* have paid, you only lose a customer. Both mistakes hurt, but **the first one hurts far more**. This model learns from 32,581 past loans which applicants tend to repay and which don't, then helps you make that call.
 
 ```
-📄 Loan application  ➜  🧹 Clean & prepare  ➜  🤖 Kernel SVM  ➜  ✅ Approve   or   🚩 Flag as high risk
+ Loan application  ➜   Clean & prepare  ➜   Kernel SVM  ➜   Approve   or    Flag as high risk
 ```
 
 ### Two mistakes, two very different price tags
