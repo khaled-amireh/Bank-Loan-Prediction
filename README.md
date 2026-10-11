@@ -55,7 +55,7 @@ That imbalance drives every decision in this project, including which metric get
 
 ---
 
-## 📂 Dataset
+##  Dataset
 
 **Source:** [Credit Risk Dataset on Kaggle](https://www.kaggle.com/datasets/laotse/credit-risk-dataset)
 
