@@ -79,6 +79,18 @@ All other columns have no empty cells. The mean imputer is fitted on **all rows 
 
 Both encoder and scaler fit on `X_train` and only transform `X_test`. These training-only fits are confirmed safeguards; they do not remove the earlier imputation leak. No explicit unknown-category handling or persisted preprocessing pipeline is provided. [Encoding and scaling details](docs/preprocessing.md#categorical-encoding) explain the actual order and what is left to library defaults.
 
+## Support Vector Machine
+
+Both implementations use the same explicit constructor:
+
+```python
+SVC(kernel='rbf', class_weight='balanced', random_state=42)
+```
+
+The RBF kernel supports nonlinear decision boundaries. Balanced weights adjust class penalties using training-label frequencies; they do not encode monetary costs. `C` and `gamma` are left to library defaults, and dependency versions are not pinned.
+
+**No linear-versus-RBF comparison, class-weight ablation, hyperparameter search, or cross-validation is saved.** The [model reference](docs/model.md) distinguishes explicit settings from assumptions and explains why this experiment cannot establish the superiority of the chosen configuration.
+
 ## Author and license
 
 **Khaled Amireh** · [GitHub](https://github.com/khaled-amireh) · [Portfolio](https://portfolio-1kpn.onrender.com)
