@@ -11,7 +11,7 @@
 [![Jupyter](https://img.shields.io/badge/Jupyter-saved%20analysis-F37626?style=flat-square&logo=jupyter&logoColor=white)](loan_prediction_model.ipynb)
 [![MIT License](https://img.shields.io/badge/License-MIT-D4AF37?style=flat-square)](LICENSE)
 
-[Overview](#executive-overview) · [Target](#business-problem-and-target) · [Dataset](#dataset-intelligence) · [Evidence audit](docs/implementation-evidence.md) · [Author](#author-and-license)
+[Overview](#executive-overview) · [Dataset](#dataset-intelligence) · [Architecture](#machine-learning-architecture) · [Evaluation](#model-evaluation) · [Evidence audit](docs/implementation-evidence.md)
 
 ## Executive overview
 
@@ -61,6 +61,31 @@ The saved EDA consists of schema, descriptive statistics, and missing-value insp
 | Credit history | `cb_person_default_on_file`, `cb_person_cred_hist_length` |
 
 See [dataset provenance and inspection](docs/dataset.md) for source attribution and counting methods, and the [complete feature glossary](docs/feature-glossary.md) for all 12 columns, category counts, ranges, and unit caveats.
+
+## Machine learning architecture
+
+This diagram follows the **current code order**. The gold node marks the full-dataset imputation fit; it is a known evaluation limitation.
+
+```mermaid
+flowchart TD
+    A["Root CSV: 32,581 rows"] --> B["Separate 11 predictors and loan_status"]
+    B --> C["Fit mean imputer on all rows; transform X"]
+    C --> D["80/20 split; random_state=42"]
+    D -->|26,064 training rows| E["Fit encoder, then fit scaler on training features"]
+    D -->|6,517 test rows| F["Transform test features with fitted encoder and scaler"]
+    E -.->|Reuse fitted transformers| F
+    E --> G["Fit balanced RBF SVC on training features and labels"]
+    F --> H["Predict test classes"]
+    G --> H
+    H --> I["Saved report and confusion matrix"]
+    D -->|Test labels| I
+    classDef step fill:#12304A,stroke:#22D3EE,color:#F8FAFC;
+    classDef limitation fill:#D4AF37,stroke:#D4AF37,color:#07121F;
+    class A,B,D,E,F,G,H,I step;
+    class C limitation;
+```
+
+`train_test_split` uses `test_size=0.2` and `random_state=42`, without an explicit `stratify` argument or a temporal/group split. Encoding and scaling are separate fitted objects, not a single `Pipeline`. The [implementation evidence](docs/implementation-evidence.md) also records the notebook's differing assignment to `df` during imputation.
 
 ## Preprocessing
 
