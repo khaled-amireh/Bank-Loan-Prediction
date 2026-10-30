@@ -54,7 +54,13 @@ The checked-in [CSV](credit_risk_dataset.csv) contains **32,581 rows and 12 colu
 
 The saved EDA consists of schema, descriptive statistics, and missing-value inspection. A read-only CSV audit also found 165 repeated full rows, maximum age 144, and maximum employment length 123 years. The original workflow retains them. These findings merit investigation before further modeling; they are not silently cleaned here.
 
-See [dataset provenance and inspection](docs/dataset.md) for source attribution, counting methods, observed ranges, and unavailable collection details.
+| Feature group | Original predictors |
+|---|---|
+| Applicant | `person_age`, `person_income`, `person_home_ownership`, `person_emp_length` |
+| Loan | `loan_intent`, `loan_grade`, `loan_amnt`, `loan_int_rate`, `loan_percent_income` |
+| Credit history | `cb_person_default_on_file`, `cb_person_cred_hist_length` |
+
+See [dataset provenance and inspection](docs/dataset.md) for source attribution and counting methods, and the [complete feature glossary](docs/feature-glossary.md) for all 12 columns, category counts, ranges, and unit caveats.
 
 ## Author and license
 
