@@ -146,6 +146,29 @@ These are **historical saved outputs**, checked against the original images and 
 
 The model flags **1,087 of 1,445 default rows** and misses **358**. Among **1,526 default flags**, **439** are false positives. A flag could inform further investigation in a hypothetical workflow, but no review process, approval action, or financial benefit is evaluated here. [Error interpretation](docs/evaluation.md#confusion-matrix-and-error-interpretation) explains the denominators and limits.
 
+## Reliability and limitations
+
+| Confirmed safeguards | Confirmed limitations |
+|---|---|
+| Target excluded from predictors | Mean imputation fitted on full data before splitting |
+| Classifier fitted on training rows | Notebook/script imputation assignment differs |
+| Encoder and scaler fitted on training rows | One random split; no stratification or cross-validation |
+| Split seed explicitly set to 42 | Extreme values and repeated rows retained; environment unpinned |
+
+No visible model-selection loop reuses the test set, but earlier manual test reuse is **unknown**. Prediction-time availability of grade/rate/history fields, duplicate overlap between partitions, subgroup performance, and transfer to other populations are also unverified. The saved scores establish no measured savings, deployment readiness, fairness, or regulatory compliance.
+
+The [reliability assessment](docs/reliability.md) separates confirmed findings from unanswered questions and explains why no corrected performance estimate can be inferred from the saved results.
+
+## Future roadmap
+
+- [ ] Fit imputation inside training folds and resolve notebook/script consistency in a separate implementation change.
+- [ ] Pin an environment, verify clean-kernel execution, and capture reproducible evaluation artifacts.
+- [ ] Investigate extreme values and repeated rows; design validation around available grouping or time metadata.
+- [ ] Compare baselines and kernels, tune on training/validation data, and reserve an independent final test set.
+- [ ] Study precision–recall tradeoffs, calibration, feature timing, and external/subgroup performance before any operational use.
+
+These items are proposed work. No training, preprocessing, parameter, or output changes were made in this documentation sprint.
+
 ## Repository structure
 
 ```text
