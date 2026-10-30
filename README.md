@@ -73,6 +73,12 @@ See [dataset provenance and inspection](docs/dataset.md) for source attribution 
 
 All other columns have no empty cells. The mean imputer is fitted on **all rows before splitting**, a confirmed source of test-feature leakage. The notebook assigns the estimator returned by `fit()` to `df`; the script assigns numeric output from `fit_transform()`. Both separately transform `X`. See the [preprocessing audit](docs/preprocessing.md) for the exact snippets and why the saved zero-missing display does not resolve that discrepancy.
 
+### Encoding and scaling
+
+`ColumnTransformer` applies `OneHotEncoder()` to home ownership, loan intent, loan grade, and historical-default status, passing through the seven numeric predictors. `StandardScaler()` then scales the **entire encoded feature matrix**, including one-hot indicators.
+
+Both encoder and scaler fit on `X_train` and only transform `X_test`. These training-only fits are confirmed safeguards; they do not remove the earlier imputation leak. No explicit unknown-category handling or persisted preprocessing pipeline is provided. [Encoding and scaling details](docs/preprocessing.md#categorical-encoding) explain the actual order and what is left to library defaults.
+
 ## Author and license
 
 **Khaled Amireh** · [GitHub](https://github.com/khaled-amireh) · [Portfolio](https://portfolio-1kpn.onrender.com)
