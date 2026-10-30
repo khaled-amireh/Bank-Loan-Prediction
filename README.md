@@ -11,7 +11,7 @@
 [![Jupyter](https://img.shields.io/badge/Jupyter-saved%20analysis-F37626?style=flat-square&logo=jupyter&logoColor=white)](loan_prediction_model.ipynb)
 [![MIT License](https://img.shields.io/badge/License-MIT-D4AF37?style=flat-square)](LICENSE)
 
-[Overview](#executive-overview) · [Evidence audit](docs/implementation-evidence.md) · [Author](#author-and-license)
+[Overview](#executive-overview) · [Target](#business-problem-and-target) · [Evidence audit](docs/implementation-evidence.md) · [Author](#author-and-license)
 
 ## Executive overview
 
@@ -29,6 +29,19 @@ A focused machine learning case study of **binary loan-default classification** 
 > The imputer learns column means from the full dataset **before** the split. Saved scores therefore have a known preprocessing-leakage limitation. The notebook and script also differ in their assignment of the imputer result. The [evidence audit](docs/implementation-evidence.md) identifies the exact locations; no corrected model was trained for this documentation update.
 
 The engineering value of this study is its inspectable treatment of mixed feature types, class imbalance, feature scaling, and classification errors. The results describe this experiment and do not establish suitability for lending decisions.
+
+## Business problem and target
+
+Credit-risk analysis asks whether a loan is associated with default. This experiment learns `loan_status` from applicant, loan, and credit-history fields. The [publisher's data card](https://www.kaggle.com/laotse/credit-risk-dataset/metadata) defines the labels as follows:
+
+| Label | Meaning | Role in evaluation |
+|---|---|---|
+| `0` | Non-default | Negative class |
+| `1` | Default | Positive class; used for default recall |
+
+A missed default and a false default flag have different business implications, so class-specific errors matter alongside accuracy. Their financial costs are not measured here; no loss amount, recovery rate, or lending policy is modeled.
+
+The original plot calls class 0 “Approved,” and the sample prints “Approved” or “Default Risk / Rejected.” Those are presentation labels in the preserved implementation. The supervised target records default status, so a class-0 prediction does not establish approval eligibility or borrower safety. The sample also reuses `X_test[0]`; it is a demonstration on an existing test row.
 
 ## Author and license
 
