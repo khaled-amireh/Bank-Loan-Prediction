@@ -11,7 +11,7 @@
 [![Jupyter](https://img.shields.io/badge/Jupyter-saved%20analysis-F37626?style=flat-square&logo=jupyter&logoColor=white)](loan_prediction_model.ipynb)
 [![MIT License](https://img.shields.io/badge/License-MIT-D4AF37?style=flat-square)](LICENSE)
 
-[Overview](#executive-overview) · [Target](#business-problem-and-target) · [Evidence audit](docs/implementation-evidence.md) · [Author](#author-and-license)
+[Overview](#executive-overview) · [Target](#business-problem-and-target) · [Dataset](#dataset-intelligence) · [Evidence audit](docs/implementation-evidence.md) · [Author](#author-and-license)
 
 ## Executive overview
 
@@ -42,6 +42,19 @@ Credit-risk analysis asks whether a loan is associated with default. This experi
 A missed default and a false default flag have different business implications, so class-specific errors matter alongside accuracy. Their financial costs are not measured here; no loss amount, recovery rate, or lending policy is modeled.
 
 The original plot calls class 0 “Approved,” and the sample prints “Approved” or “Default Risk / Rejected.” Those are presentation labels in the preserved implementation. The supervised target records default status, so a class-0 prediction does not establish approval eligibility or borrower safety. The sample also reuses `X_test[0]`; it is a demonstration on an existing test row.
+
+## Dataset intelligence
+
+The checked-in [CSV](credit_risk_dataset.csv) contains **32,581 rows and 12 columns: 11 predictors plus `loan_status`**. The attributed [Kaggle source](https://www.kaggle.com/laotse/credit-risk-dataset/metadata) describes simulated credit-bureau fields.
+
+| Target | Records | Share |
+|---|---:|---:|
+| Non-default (`0`) | 25,473 | 78.18% |
+| Default (`1`) | 7,108 | 21.82% |
+
+The saved EDA consists of schema, descriptive statistics, and missing-value inspection. A read-only CSV audit also found 165 repeated full rows, maximum age 144, and maximum employment length 123 years. The original workflow retains them. These findings merit investigation before further modeling; they are not silently cleaned here.
+
+See [dataset provenance and inspection](docs/dataset.md) for source attribution, counting methods, observed ranges, and unavailable collection details.
 
 ## Author and license
 
