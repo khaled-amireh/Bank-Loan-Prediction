@@ -12,35 +12,38 @@
 
 Means were calculated directly from the non-empty CSV fields as an arithmetic check, without fitting an estimator. Missingness counts are per column; summing them would not establish the number of distinct affected rows.
 
-The script performs these operations before `train_test_split`:
+The script and notebook now split raw features before learning the imputation means:
 
 ```python
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 missing_cols = ['loan_int_rate', 'person_emp_length']
 imputer = SimpleImputer(missing_values=np.nan, strategy='mean')
-df[missing_cols] = imputer.fit_transform(df[missing_cols])
-X[missing_cols] = imputer.transform(X[missing_cols])
+X_train[missing_cols] = imputer.fit_transform(X_train[missing_cols])
+X_test[missing_cols] = imputer.transform(X_test[missing_cols])
 ```
 
-This retains rows and uses the same learned column means for `df` and `X`. There is no missingness indicator, subgroup-specific imputation, or evaluation of alternative strategies.
+This retains every row and the original mean strategy. `df` and `X` remain raw EDA inputs; only the prepared partitions are imputed. Missingness verification now checks both `X_train` and `X_test`. There is no missingness indicator, subgroup-specific imputation, or evaluation of alternative strategies.
 
-## Confirmed leakage from the order of operations
+## Leakage correction
 
-Both original artifacts fit the imputer on the complete dataset before partitioning it. Test-set feature values therefore contribute to the means used in training. This is a preprocessing leak even though the imputer does not use `y`. Its effect on the scores cannot be quantified from saved outputs alone.
+Before the fix, both artifacts fitted the imputer on the complete dataset before partitioning it. Test-set feature values therefore influenced the means used in training. The corrected training-only means are **11.0101161755** for interest rate and **4.7872332031** for employment length; the full-file means in the EDA table above are no longer used for imputation.
 
-Training-only fitting of all learned transformations is the recommended evaluation practice ([scikit-learn guidance](https://scikit-learn.org/stable/common_pitfalls.html#data-leakage)). Moving imputation inside a training-fitted pipeline would be a future implementation change requiring a new evaluation; it has not been done here.
+Training-only fitting follows [scikit-learn guidance](https://scikit-learn.org/stable/common_pitfalls.html#data-leakage). The fix moves the existing split ahead of imputation without introducing a new pipeline. A [fresh-kernel evaluation](evaluation.md#corrected-workflow-verification) found no changed predictions versus a pre-fix replay in the same environment.
 
-## Notebook and script differ
+## Notebook and script consistency
 
-Notebook cell 10 contains the following assignment instead of the script's `fit_transform` assignment:
+Before the fix, notebook cell 10 at commit `7f74cc9` contained this assignment instead of the script's `fit_transform` assignment:
 
 ```python
 df[missing_cols] = imputer.fit(df[missing_cols])
 X[missing_cols] = imputer.transform(X[missing_cols])
 ```
 
-The [imputer API](https://scikit-learn.org/stable/modules/generated/sklearn.impute.SimpleImputer.html#sklearn.impute.SimpleImputer.fit) returns an estimator from `fit`, whereas `fit_transform` returns transformed data. Assigning the estimator to `df` is not equivalent to assigning numeric imputed values. A later saved display of zero missing values in `df` does not validate that operation.
+The [imputer API](https://scikit-learn.org/stable/modules/generated/sklearn.impute.SimpleImputer.html#sklearn.impute.SimpleImputer.fit) returns an estimator from `fit`, whereas `fit_transform` returns transformed data. That historical assignment and the script's full-data assignment are both removed. The notebook's existing split section now precedes imputation; all headings, cell IDs, and notebook metadata are preserved.
 
-`X` was created earlier by dropping `loan_status`, and the notebook separately calls `imputer.transform` on its numeric columns. The discrepancy in `df` should not be presented as proof that the model itself received estimator objects. Fresh-kernel execution and numeric dtype checks would be needed to establish reproducibility; neither original file was edited or run during this documentation work.
+The corrected script and notebook produce identical prepared training/test arrays with finite values, unchanged feature ordering, and shapes `(26064, 26)` / `(6517, 26)`. Changing only held-out numeric values leaves the learned training statistics and transformed training features unchanged; the same check detects the old full-data leak. Only affected verification, evaluation, and sample outputs/counts were merged from the fresh notebook run; unrelated saved outputs remain intact.
 
 ## Categorical encoding
 
@@ -69,4 +72,4 @@ The [scaler](https://scikit-learn.org/stable/modules/generated/sklearn.preproces
 
 This changes the geometry used by the RBF kernel; raw income and amount magnitudes otherwise differ greatly from age and proportions. It does not establish robustness to the extreme values found in the CSV. Neither a scaled-versus-unscaled ablation nor a numeric-only-scaling comparison is saved.
 
-Training-only fitting is confirmed for the encoder and scaler. It does not undo the earlier full-data imputation leak. The workflow uses standalone transformer objects, not a single scikit-learn `Pipeline`, and does not save the fitted transformers for future inference.
+Training-only fitting is now confirmed for the imputer, encoder, and scaler. Encoder/scaler code is unchanged. The workflow still uses standalone transformer objects, not a single scikit-learn `Pipeline`, and does not save the fitted transformers for future inference.

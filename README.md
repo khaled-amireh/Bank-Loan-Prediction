@@ -15,7 +15,7 @@
 
 ## Executive overview
 
-A focused machine learning case study of **binary loan-default classification** using an RBF Support Vector Machine. The repository preserves the original notebook, Python script, dataset, and confusion matrix so readers can inspect the implementation alongside its saved evaluation.
+A focused machine learning case study of **binary loan-default classification** using an RBF Support Vector Machine. The notebook and Python script use equivalent training-only preprocessing; the dataset and original confusion-matrix image remain unchanged.
 
 | Study at a glance | Verified scope |
 |---|---|
@@ -26,7 +26,7 @@ A focused machine learning case study of **binary loan-default classification** 
 | Status | Educational analysis; no deployed lending service or saved model artifact |
 
 > [!IMPORTANT]
-> The imputer learns column means from the full dataset **before** the split. Saved scores therefore have a known preprocessing-leakage limitation. The notebook and script also differ in their assignment of the imputer result. The [evidence audit](docs/implementation-evidence.md) identifies the exact locations; no corrected model was trained for this documentation update.
+> Mean imputation now fits on training rows only, followed by test-only transformation. A fresh-kernel evaluation reproduced the historical accuracy and confusion matrix, with no changed predictions versus a pre-fix replay. The [evaluation record](docs/evaluation.md#corrected-workflow-verification) distinguishes this corrected run from the historical baseline; the remaining single-split limitations still apply.
 
 The engineering value of this study is its inspectable treatment of mixed feature types, class imbalance, feature scaling, and classification errors. The results describe this experiment and do not establish suitability for lending decisions.
 
@@ -64,15 +64,16 @@ See [dataset provenance and inspection](docs/dataset.md) for source attribution 
 
 ## Machine learning architecture
 
-This diagram follows the **current code order**. The gold node marks the full-dataset imputation fit; it is a known evaluation limitation.
+This diagram follows the **current code order**. The gold node marks mean imputation fitted exclusively on training rows.
 
 ```mermaid
 flowchart TD
     A["Root CSV: 32,581 rows"] --> B["Separate 11 predictors and loan_status"]
-    B --> C["Fit mean imputer on all rows; transform X"]
-    C --> D["80/20 split; random_state=42"]
-    D -->|26,064 training rows| E["Fit encoder, then fit scaler on training features"]
-    D -->|6,517 test rows| F["Transform test features with fitted encoder and scaler"]
+    B --> D["80/20 split; random_state=42"]
+    D -->|26,064 training rows| C["Fit mean imputer on training rows; transform training features"]
+    C --> E["Fit encoder, then fit scaler on training features"]
+    D -->|6,517 test rows| F["Transform test features with fitted imputer, encoder and scaler"]
+    C -.->|Reuse fitted imputer| F
     E -.->|Reuse fitted transformers| F
     E --> G["Fit balanced RBF SVC on training features and labels"]
     F --> H["Predict test classes"]
@@ -80,12 +81,12 @@ flowchart TD
     H --> I["Saved report and confusion matrix"]
     D -->|Test labels| I
     classDef step fill:#12304A,stroke:#22D3EE,color:#F8FAFC;
-    classDef limitation fill:#D4AF37,stroke:#D4AF37,color:#07121F;
+    classDef imputation fill:#D4AF37,stroke:#D4AF37,color:#07121F;
     class A,B,D,E,F,G,H,I step;
-    class C limitation;
+    class C imputation;
 ```
 
-`train_test_split` uses `test_size=0.2` and `random_state=42`, without an explicit `stratify` argument or a temporal/group split. Encoding and scaling are separate fitted objects, not a single `Pipeline`. The [implementation evidence](docs/implementation-evidence.md) also records the notebook's differing assignment to `df` during imputation.
+`train_test_split` uses `test_size=0.2` and `random_state=42`, without an explicit `stratify` argument or a temporal/group split. Imputation, encoding, and scaling are separate fitted objects, not a single `Pipeline`. The [historical audit](docs/implementation-evidence.md) records the pre-fix implementation.
 
 ## Preprocessing
 
@@ -96,13 +97,13 @@ flowchart TD
 | `loan_int_rate` | 3,116 | 9.56% | Mean imputation |
 | `person_emp_length` | 895 | 2.75% | Mean imputation |
 
-All other columns have no empty cells. The mean imputer is fitted on **all rows before splitting**, a confirmed source of test-feature leakage. The notebook assigns the estimator returned by `fit()` to `df`; the script assigns numeric output from `fit_transform()`. Both separately transform `X`. See the [preprocessing audit](docs/preprocessing.md) for the exact snippets and why the saved zero-missing display does not resolve that discrepancy.
+All other columns have no empty cells. Both implementations split raw `X` and `y` first, then use `imputer.fit_transform(X_train[missing_cols])` and `imputer.transform(X_test[missing_cols])`. The raw `df` remains available for EDA; missingness verification checks both prepared partitions. This also removes the notebook's former assignment of an estimator to `df`. See the [preprocessing details](docs/preprocessing.md).
 
 ### Encoding and scaling
 
 `ColumnTransformer` applies `OneHotEncoder()` to home ownership, loan intent, loan grade, and historical-default status, passing through the seven numeric predictors. `StandardScaler()` then scales the **entire encoded feature matrix**, including one-hot indicators.
 
-Both encoder and scaler fit on `X_train` and only transform `X_test`. These training-only fits are confirmed safeguards; they do not remove the earlier imputation leak. No explicit unknown-category handling or persisted preprocessing pipeline is provided. [Encoding and scaling details](docs/preprocessing.md#categorical-encoding) explain the actual order and what is left to library defaults.
+Both encoder and scaler fit on `X_train` and only transform `X_test`; their code is unchanged. Together with training-only imputation, all learned preprocessing now follows this fit boundary. No explicit unknown-category handling or persisted preprocessing pipeline is provided. [Encoding and scaling details](docs/preprocessing.md#categorical-encoding) explain the actual order and what is left to library defaults.
 
 ## Support Vector Machine
 
@@ -118,9 +119,9 @@ The RBF kernel supports nonlinear decision boundaries. Balanced weights adjust c
 
 ## Model evaluation
 
-**Saved accuracy: 87.77% · Default recall from saved counts: 75.22% · Test rows: 6,517**
+**Corrected-run accuracy: 87.77% · Default recall: 75.22% · Test rows: 6,517**
 
-The notebook prints accuracy `0.8777044652447445`. Its saved classification report rounds the class scores to two decimals:
+The corrected notebook run prints accuracy `0.8777044652447445`. Its regenerated classification report rounds the class scores to two decimals:
 
 | Class | Precision | Recall | F1 | Support |
 |---|---:|---:|---:|---:|
@@ -129,7 +130,7 @@ The notebook prints accuracy `0.8777044652447445`. Its saved classification repo
 
 Default precision measures how often a default flag is correct; default recall measures how many actual defaults are detected. F1 balances those two rates. An always-non-default rule would achieve 77.83% accuracy on these test labels but detect no defaults; that is an arithmetic reference, not a trained comparison.
 
-These are **historical saved outputs**, checked against the original images and report. Training was not rerun. The full-data imputation leak and single-split design limit their interpretation. See [evaluation arithmetic and definitions](docs/evaluation.md) for exact fractions, averages, and the distinction between report rounding and recomputed rates.
+The corrected workflow was evaluated once in a fresh kernel. A pre-fix replay in the same installed environment matched the historical baseline, and **0 of 6,517 predictions changed** after the fix; train/test row indices and feature order were identical. Accuracy and default precision/recall/F1 each changed by **0.00 percentage points**. See [the evaluation comparison and environment](docs/evaluation.md#corrected-workflow-verification). Identical scores do not remove the remaining single-split limitations.
 
 ### Confusion matrix and error analysis
 
@@ -137,7 +138,7 @@ These are **historical saved outputs**, checked against the original images and 
   <img src="images/confusion_matrix(SVM).png" alt="Original SVM confusion matrix: 4633 true negatives, 439 false positives, 358 false negatives, 1087 true positives" width="620">
 </p>
 
-*Original saved image, unchanged. Rows are true labels and columns are predictions. Its “Approved (0)” label refers to the non-default class, not a verified approval decision.*
+*Historical image, unchanged; its counts also match the corrected run. The notebook's inline plot was regenerated. Rows are true labels and columns are predictions. “Approved (0)” refers to non-default, not a verified approval decision.*
 
 | Actual / predicted | Non-default (`0`) | Default (`1`) |
 |---|---:|---:|
@@ -150,8 +151,8 @@ The model flags **1,087 of 1,445 default rows** and misses **358**. Among **1,52
 
 | Confirmed safeguards | Confirmed limitations |
 |---|---|
-| Target excluded from predictors | Mean imputation fitted on full data before splitting |
-| Classifier fitted on training rows | Notebook/script imputation assignment differs |
+| Target excluded from predictors | No independent external validation |
+| Imputer fitted on training rows; script/notebook preprocessing aligned | No persisted fitted model or transformers |
 | Encoder and scaler fitted on training rows | One random split; no stratification or cross-validation |
 | Split seed explicitly set to 42 | Extreme values and repeated rows retained; environment unpinned |
 
@@ -161,20 +162,20 @@ The [reliability assessment](docs/reliability.md) separates confirmed findings f
 
 ## Future roadmap
 
-- [ ] Fit imputation inside training folds and resolve notebook/script consistency in a separate implementation change.
-- [ ] Pin an environment, verify clean-kernel execution, and capture reproducible evaluation artifacts.
+- [x] Fit mean imputation on training rows and align script/notebook preprocessing.
+- [ ] Pin dependency versions and capture a reusable evaluation environment.
 - [ ] Investigate extreme values and repeated rows; design validation around available grouping or time metadata.
 - [ ] Compare baselines and kernels, tune on training/validation data, and reserve an independent final test set.
 - [ ] Study precision–recall tradeoffs, calibration, feature timing, and external/subgroup performance before any operational use.
 
-These items are proposed work. No training, preprocessing, parameter, or output changes were made in this documentation sprint.
+The imputation fix and a fresh-kernel evaluation are complete; the remaining items are proposed work. The original SVM configuration, features, split ratio, and seeds are unchanged.
 
 ## Repository structure
 
 ```text
 Bank-Loan-Prediction/
-├── loan_prediction_model.ipynb       # Original notebook with saved outputs
-├── loan_prediction_model.py          # Original script
+├── loan_prediction_model.ipynb       # Notebook with corrected preprocessing and relevant outputs
+├── loan_prediction_model.py          # Script with the same minimal fix
 ├── credit_risk_dataset.csv           # Original local dataset
 ├── images/
 │   ├── confusion_matrix(SVM).png     # Original evaluation plot
@@ -197,9 +198,9 @@ python -m venv "$env:TEMP\credit-risk-intelligence-venv"
 & "$env:TEMP\credit-risk-intelligence-venv\Scripts\python.exe" -m notebook loan_prediction_model.ipynb
 ```
 
-The notebook metadata records **Python 3.11.9**. Exact dependency versions are **not pinned**, and no `requirements.txt` exists. This is an unpinned setup example; a fresh training run was not performed or verified during the documentation sprint. Run from the repository root so the relative CSV path resolves.
+The notebook metadata and verified corrected run use **Python 3.11.9**. Dependency versions are **not pinned**, and no `requirements.txt` exists; the [evaluation record](docs/evaluation.md#corrected-workflow-verification) records the installed versions used for this run. The setup example remains unpinned. Run from the repository root so the relative CSV path resolves.
 
-The [reproduction guide](docs/reproduction.md) provides macOS/Linux commands, an import-to-package map, intentional script-execution instructions for a separate experimental checkout, and troubleshooting. Review the known preprocessing discrepancy before rerunning or saving the original notebook.
+The [reproduction guide](docs/reproduction.md) provides macOS/Linux commands, an import-to-package map, intentional script-execution instructions for a separate experimental checkout, and troubleshooting. The former imputation discrepancy is resolved in both implementations.
 
 ## Documentation and contributions
 
@@ -211,4 +212,4 @@ Use the [implementation evidence](docs/implementation-evidence.md) to trace clai
 
 Repository code is provided under the [MIT License](LICENSE). Dataset provenance and its publisher's terms should be considered separately from the repository license.
 
-The original ML artifacts are preserved byte for byte; see the [SHA-256 baseline](docs/protection-baseline.md).
+The dataset, existing image assets, and license remain byte for byte unchanged. The [SHA-256 baseline](docs/protection-baseline.md) records the historical artifacts before this separately scoped code fix.

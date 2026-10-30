@@ -2,11 +2,30 @@
 
 [Project overview](../README.md) · [Evidence locations](implementation-evidence.md)
 
+## Corrected workflow verification
+
+On 2026-10-30, one fresh-kernel evaluation was completed after fitting mean imputation on training rows only. One pre-fix script replay in the same installed environment matched the historical notebook metrics and matrix. No tuning or repeated search was performed.
+
+| Metric | Historical baseline / pre-fix replay | Corrected run | Absolute change |
+|---|---:|---:|---:|
+| Accuracy | 87.7704% | 87.7704% | 0.0000 percentage points |
+| Default precision | 71.2320% | 71.2320% | 0.0000 percentage points |
+| Default recall | 75.2249% | 75.2249% | 0.0000 percentage points |
+| Default F1 | 73.1740% | 73.1740% | 0.0000 percentage points |
+
+The corrected matrix is **`[[4633, 439], [358, 1087]]`**, identical to the historical matrix: the absolute change in every count is zero. **0 of 6,517 predictions changed** between the pre-fix replay and corrected run. Train/test row indices, labels, raw and encoded feature order, input shapes, and all resolved SVC parameters were checked for equality. The historical notebook did not save per-row predictions, so the paired prediction comparison is with the replay, not a recovered historical prediction file.
+
+The split remains `test_size=0.2, random_state=42`, without stratification; the model remains `SVC(kernel='rbf', class_weight='balanced', random_state=42)`. Encoder and scaler code is unchanged. Training-only imputation changes its means to `[11.010116175535298, 4.787233203140411]` for `[loan_int_rate, person_emp_length]`; identical classification results do not imply identical preprocessing.
+
+The installed run environment was **Python 3.11.9, NumPy 2.4.6, pandas 3.0.3, scikit-learn 1.9.0, Matplotlib 3.11.0, and Seaborn 0.13.2**. Notebook execution used nbclient 0.11.0, nbformat 5.10.4, and ipykernel 7.3.0. No packages were installed or upgraded. These versions record this run; the historical package versions are unknown, and no dependency lockfile has been introduced.
+
+The notebook's affected missingness, evaluation, and sample outputs were regenerated; unrelated outputs and metadata were preserved. The original repository PNG stays unchanged as a historical asset, and its counts also match this corrected run. Scalar metric definitions and the count arithmetic below apply to both evaluations because their predictions and supports match in the paired replay.
+
 ## Source and scope
 
-These results come from the **saved output of notebook cell 23**. They were checked against both saved confusion-matrix images and recomputed with scalar arithmetic, without model execution. No script run log, serialized predictions, or fitted estimator is committed.
+The sections below retain the **historical baseline** documented before the fix at `7f74cc9`. Its notebook cell 23 output was checked against both saved confusion-matrix images and recomputed with scalar arithmetic. No historical prediction file or fitted estimator was committed. Current corrected results are independently verified above and in the regenerated notebook output.
 
-The source uses `train_test_split(X, y, test_size=0.2, random_state=42)` with no explicit stratification. There are 26,064 training rows and 6,517 test rows. Test support is 5,072 non-default rows and 1,445 default rows. Because imputation occurs before the split, the test subset is excluded from classifier fitting but not from all preprocessing fitting.
+Both versions use `train_test_split(X, y, test_size=0.2, random_state=42)` with no explicit stratification. There are 26,064 training rows and 6,517 test rows. Test support is 5,072 non-default rows and 1,445 default rows. The historical implementation fitted imputation before splitting; the corrected version fits every learned transformation on training rows only.
 
 ## Original classification report
 
@@ -41,11 +60,11 @@ Macro averages weight the two classes equally. Weighted averages weight each cla
 
 Always predicting class 0 would achieve `5072 / 6517 = 77.83%` accuracy on these saved test labels and zero default recall. This is an arithmetic reference derived from support counts, not a newly trained or saved baseline experiment.
 
-The RBF model's saved results describe classification errors under one partition and one configuration. They do not establish a calibrated default probability, robustness under a different population, financial return, fairness, or operational reliability. There is no leakage-free replacement score, uncertainty interval, cross-validation estimate, ROC-AUC, or PR-AUC in the saved artifacts.
+The historical and corrected results describe classification errors under one partition and one configuration. They do not establish a calibrated default probability, robustness under a different population, financial return, fairness, or operational reliability. The corrected evaluation removes the confirmed preprocessing leak; uncertainty intervals, cross-validation, ROC-AUC, and PR-AUC remain unavailable.
 
 ## Confusion matrix and error interpretation
 
-Both the notebook's embedded PNG and the [original repository image](../images/confusion_matrix%28SVM%29.png) were visually inspected. Their counts agree despite different image dimensions. With class 1 as the positive class, the matrix is:
+The historical embedded PNG and the [original repository image](../images/confusion_matrix%28SVM%29.png) were visually inspected during the original audit. Their counts agree with the regenerated corrected-run plot. With class 1 as the positive class, the matrix for both evaluations is:
 
 | True label / prediction | Non-default (`0`) | Default (`1`) | Total |
 |---|---:|---:|---:|

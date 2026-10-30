@@ -4,6 +4,8 @@
 
 This audit describes the checkout at `ace83acdc7723ac183649eb3e087d500fc400c85` on branch `main`, inspected on 2026-10-30. The working tree was clean before documentation work. Sources were read without executing the notebook, importing the model script, or training a model.
 
+**Historical audit:** the findings and original file references below apply to that pre-fix checkout. A subsequent minimal correction moves the split ahead of training-only imputation in both implementations and removes the notebook assignment discrepancy. See [current preprocessing](preprocessing.md) and the [verified corrected evaluation](evaluation.md#corrected-workflow-verification); the historical evidence is retained here for traceability.
+
 ## Evidence map
 
 Notebook cell numbers below are **zero-based JSON cell indices**, including Markdown cells. Script references use the original file's line numbers.

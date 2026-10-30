@@ -25,19 +25,19 @@ print('\n--- Missing Values Count ---')
 pd.set_option('display.max_rows', None)
 print(df.isnull().sum().sort_values(ascending=False))
 
-# 3. Data Preprocessing - Handling Missing Values
-missing_cols = ['loan_int_rate', 'person_emp_length']
-imputer = SimpleImputer(missing_values=np.nan, strategy='mean')
-df[missing_cols] = imputer.fit_transform(df[missing_cols])
-X[missing_cols] = imputer.transform(X[missing_cols])
-
-print('\n--- Missing Values Verification ---')
-print(df.isnull().sum().sort_values(ascending=False))
-
-# 4. Split Data into Training and Testing Sets
+# 3. Split Data into Training and Testing Sets
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
+
+# 4. Data Preprocessing - Handling Missing Values
+missing_cols = ['loan_int_rate', 'person_emp_length']
+imputer = SimpleImputer(missing_values=np.nan, strategy='mean')
+X_train[missing_cols] = imputer.fit_transform(X_train[missing_cols])
+X_test[missing_cols] = imputer.transform(X_test[missing_cols])
+
+print('\n--- Missing Values Verification ---')
+print(pd.DataFrame({'train': X_train.isnull().sum(), 'test': X_test.isnull().sum()}))
 
 # 5. Encoding Categorical Data
 categorical_columns = [
