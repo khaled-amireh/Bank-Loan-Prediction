@@ -91,6 +91,21 @@ The RBF kernel supports nonlinear decision boundaries. Balanced weights adjust c
 
 **No linear-versus-RBF comparison, class-weight ablation, hyperparameter search, or cross-validation is saved.** The [model reference](docs/model.md) distinguishes explicit settings from assumptions and explains why this experiment cannot establish the superiority of the chosen configuration.
 
+## Model evaluation
+
+**Saved accuracy: 87.77% · Default recall from saved counts: 75.22% · Test rows: 6,517**
+
+The notebook prints accuracy `0.8777044652447445`. Its saved classification report rounds the class scores to two decimals:
+
+| Class | Precision | Recall | F1 | Support |
+|---|---:|---:|---:|---:|
+| Non-default (`0`) | 0.93 | 0.91 | 0.92 | 5,072 |
+| Default (`1`) | 0.71 | 0.75 | 0.73 | 1,445 |
+
+Default precision measures how often a default flag is correct; default recall measures how many actual defaults are detected. F1 balances those two rates. An always-non-default rule would achieve 77.83% accuracy on these test labels but detect no defaults; that is an arithmetic reference, not a trained comparison.
+
+These are **historical saved outputs**, checked against the original images and report. Training was not rerun. The full-data imputation leak and single-split design limit their interpretation. See [evaluation arithmetic and definitions](docs/evaluation.md) for exact fractions, averages, and the distinction between report rounding and recomputed rates.
+
 ## Author and license
 
 **Khaled Amireh** · [GitHub](https://github.com/khaled-amireh) · [Portfolio](https://portfolio-1kpn.onrender.com)
