@@ -2,10 +2,10 @@
 
 [Project overview](../README.md) · [Implementation evidence](implementation-evidence.md)
 
-Initial commit: `ace83acdc7723ac183649eb3e087d500fc400c85`  
-Initial branch: `main`  
-Initial working tree: clean  
-Inspection date: 2026-10-30
+- Initial commit: `ace83acdc7723ac183649eb3e087d500fc400c85`
+- Initial branch: `main`
+- Initial working tree: clean
+- Inspection date: 2026-10-30
 
 Every original tracked file except `README.md` is protected. SHA-256 was computed from raw file bytes before any repository edits.
 
