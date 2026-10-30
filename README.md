@@ -62,6 +62,17 @@ The saved EDA consists of schema, descriptive statistics, and missing-value insp
 
 See [dataset provenance and inspection](docs/dataset.md) for source attribution and counting methods, and the [complete feature glossary](docs/feature-glossary.md) for all 12 columns, category counts, ranges, and unit caveats.
 
+## Preprocessing
+
+### Missing-value handling
+
+| Field | Missing | Share | Implemented strategy |
+|---|---:|---:|---|
+| `loan_int_rate` | 3,116 | 9.56% | Mean imputation |
+| `person_emp_length` | 895 | 2.75% | Mean imputation |
+
+All other columns have no empty cells. The mean imputer is fitted on **all rows before splitting**, a confirmed source of test-feature leakage. The notebook assigns the estimator returned by `fit()` to `df`; the script assigns numeric output from `fit_transform()`. Both separately transform `X`. See the [preprocessing audit](docs/preprocessing.md) for the exact snippets and why the saved zero-missing display does not resolve that discrepancy.
+
 ## Author and license
 
 **Khaled Amireh** · [GitHub](https://github.com/khaled-amireh) · [Portfolio](https://portfolio-1kpn.onrender.com)
