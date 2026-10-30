@@ -11,7 +11,7 @@
 [![Jupyter](https://img.shields.io/badge/Jupyter-saved%20analysis-F37626?style=flat-square&logo=jupyter&logoColor=white)](loan_prediction_model.ipynb)
 [![MIT License](https://img.shields.io/badge/License-MIT-D4AF37?style=flat-square)](LICENSE)
 
-[Overview](#executive-overview) · [Dataset](#dataset-intelligence) · [Architecture](#machine-learning-architecture) · [Evaluation](#model-evaluation) · [Reproduce](#installation-and-reproduction)
+[Overview](#executive-overview) · [Dataset](#dataset-intelligence) · [Architecture](#machine-learning-architecture) · [Evaluation](#model-evaluation) · [Reliability](#reliability-and-limitations) · [Reproduce](#installation-and-reproduction)
 
 ## Executive overview
 
@@ -180,6 +180,7 @@ Bank-Loan-Prediction/
 │   ├── confusion_matrix(SVM).png     # Original evaluation plot
 │   └── credit-risk-intelligence-banner.svg
 ├── docs/                            # Evidence and technical references
+├── CONTRIBUTING.md                  # Documentation and experiment review guidance
 ├── README.md
 └── LICENSE                          # Original MIT license
 ```
@@ -199,6 +200,10 @@ python -m venv "$env:TEMP\credit-risk-intelligence-venv"
 The notebook metadata records **Python 3.11.9**. Exact dependency versions are **not pinned**, and no `requirements.txt` exists. This is an unpinned setup example; a fresh training run was not performed or verified during the documentation sprint. Run from the repository root so the relative CSV path resolves.
 
 The [reproduction guide](docs/reproduction.md) provides macOS/Linux commands, an import-to-package map, intentional script-execution instructions for a separate experimental checkout, and troubleshooting. Review the known preprocessing discrepancy before rerunning or saving the original notebook.
+
+## Documentation and contributions
+
+Use the [implementation evidence](docs/implementation-evidence.md) to trace claims to original source locations, the [reproduction guide](docs/reproduction.md) to inspect or investigate the study locally, and the [contribution guide](CONTRIBUTING.md) to propose focused changes. The [verification record](docs/verification.md) documents the scope and checks of this documentation sprint.
 
 ## Author and license
 
