@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="440" viewBox="0 0 1440 440" fill="none" role="img" aria-labelledby="title description">
+  <title id="title">Credit Risk Intelligence</title>
+  <desc id="description">Machine Learning for Loan Default Risk Assessment. Midnight navy artwork with cyan data connections and restrained gold geometric accents.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1440" y2="440" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#07121F"/>
+      <stop offset="1" stop-color="#12304A"/>
+    </linearGradient>
+    <linearGradient id="signal" x1="952" y1="304" x2="1360" y2="107" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22D3EE" stop-opacity="0.15"/>
+      <stop offset="0.62" stop-color="#22D3EE" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#D4AF37"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="440" rx="20" fill="url(#background)"/>
+  <rect x="1" y="1" width="1438" height="438" rx="19" stroke="#F8FAFC" stroke-opacity="0.1"/>
+  <path d="M924 1V439M1004 1V439M1084 1V439M1164 1V439M1244 1V439M1324 1V439M1404 1V439M924 60H1439M924 140H1439M924 220H1439M924 300H1439M924 380H1439" stroke="#F8FAFC" stroke-opacity="0.035"/>
+  <path d="M72 62H111" stroke="#D4AF37" stroke-width="3"/>
+  <text x="129" y="68" fill="#D4AF37" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="3">RISK ANALYTICS / MACHINE LEARNING</text>
+  <g fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="700" letter-spacing="1">
+    <text x="67" y="164">CREDIT RISK</text>
+    <text x="67" y="242">INTELLIGENCE</text>
+  </g>
+  <text x="72" y="297" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="25">Machine Learning for Loan Default Risk Assessment</text>
+  <path d="M72 332H828" stroke="#F8FAFC" stroke-opacity="0.15"/>
+  <text x="72" y="373" fill="#22D3EE" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="2">RBF SUPPORT VECTOR MACHINE</text>
+  <circle cx="412" cy="368" r="2.5" fill="#D4AF37"/>
+  <text x="435" y="373" fill="#F8FAFC" fill-opacity="0.72" font-family="Arial, Helvetica, sans-serif" font-size="15" letter-spacing="2">RESEARCH CASE STUDY</text>
+  <g stroke="#22D3EE">
+    <circle cx="1193" cy="210" r="136" stroke-opacity="0.12"/>
+    <circle cx="1193" cy="210" r="105" stroke-opacity="0.2"/>
+    <circle cx="1193" cy="210" r="72" stroke-opacity="0.12" stroke-dasharray="3 9"/>
+    <path d="M1041 293L1091 241L1145 268L1194 183L1246 209L1307 132L1351 151" stroke-opacity="0.18"/>
+    <path d="M1091 241L1119 147L1194 183L1235 99M1145 268L1246 209L1277 297M1194 183L1307 132" stroke-opacity="0.18"/>
+  </g>
+  <path d="M956 320C1034 321 1019 261 1080 257C1136 254 1118 206 1181 207C1236 208 1235 161 1290 160C1329 159 1341 119 1370 107" stroke="url(#signal)" stroke-width="3"/>
+  <path d="M1093 118A136 136 0 0 1 1301 127" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/>
+  <g fill="#22D3EE">
+    <circle cx="1041" cy="293" r="4"/>
+    <circle cx="1091" cy="241" r="5"/>
+    <circle cx="1119" cy="147" r="4"/>
+    <circle cx="1145" cy="268" r="4"/>
+    <circle cx="1194" cy="183" r="7"/>
+    <circle cx="1246" cy="209" r="4"/>
+    <circle cx="1277" cy="297" r="4"/>
+    <circle cx="1351" cy="151" r="4"/>
+  </g>
+  <circle cx="1235" cy="99" r="4" fill="#D4AF37"/>
+  <circle cx="1307" cy="132" r="6" fill="#D4AF37"/>
+  <circle cx="1194" cy="183" r="15" stroke="#22D3EE" stroke-opacity="0.25"/>
+  <path d="M1065 376H1330" stroke="#F8FAFC" stroke-opacity="0.15"/>
+  <path d="M1065 376H1125" stroke="#D4AF37" stroke-width="2"/>
+</svg>
