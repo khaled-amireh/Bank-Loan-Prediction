@@ -106,6 +106,21 @@ Default precision measures how often a default flag is correct; default recall m
 
 These are **historical saved outputs**, checked against the original images and report. Training was not rerun. The full-data imputation leak and single-split design limit their interpretation. See [evaluation arithmetic and definitions](docs/evaluation.md) for exact fractions, averages, and the distinction between report rounding and recomputed rates.
 
+### Confusion matrix and error analysis
+
+<p align="center">
+  <img src="images/confusion_matrix(SVM).png" alt="Original SVM confusion matrix: 4633 true negatives, 439 false positives, 358 false negatives, 1087 true positives" width="620">
+</p>
+
+*Original saved image, unchanged. Rows are true labels and columns are predictions. Its “Approved (0)” label refers to the non-default class, not a verified approval decision.*
+
+| Actual / predicted | Non-default (`0`) | Default (`1`) |
+|---|---:|---:|
+| Non-default (`0`) | 4,633 true negatives | 439 false positives |
+| Default (`1`) | 358 false negatives | 1,087 true positives |
+
+The model flags **1,087 of 1,445 default rows** and misses **358**. Among **1,526 default flags**, **439** are false positives. A flag could inform further investigation in a hypothetical workflow, but no review process, approval action, or financial benefit is evaluated here. [Error interpretation](docs/evaluation.md#confusion-matrix-and-error-interpretation) explains the denominators and limits.
+
 ## Author and license
 
 **Khaled Amireh** · [GitHub](https://github.com/khaled-amireh) · [Portfolio](https://portfolio-1kpn.onrender.com)
