@@ -11,7 +11,7 @@
 [![Jupyter](https://img.shields.io/badge/Jupyter-saved%20analysis-F37626?style=flat-square&logo=jupyter&logoColor=white)](loan_prediction_model.ipynb)
 [![MIT License](https://img.shields.io/badge/License-MIT-D4AF37?style=flat-square)](LICENSE)
 
-[Overview](#executive-overview) · [Dataset](#dataset-intelligence) · [Architecture](#machine-learning-architecture) · [Evaluation](#model-evaluation) · [Evidence audit](docs/implementation-evidence.md)
+[Overview](#executive-overview) · [Dataset](#dataset-intelligence) · [Architecture](#machine-learning-architecture) · [Evaluation](#model-evaluation) · [Reproduce](#installation-and-reproduction)
 
 ## Executive overview
 
@@ -145,6 +145,37 @@ These are **historical saved outputs**, checked against the original images and 
 | Default (`1`) | 358 false negatives | 1,087 true positives |
 
 The model flags **1,087 of 1,445 default rows** and misses **358**. Among **1,526 default flags**, **439** are false positives. A flag could inform further investigation in a hypothetical workflow, but no review process, approval action, or financial benefit is evaluated here. [Error interpretation](docs/evaluation.md#confusion-matrix-and-error-interpretation) explains the denominators and limits.
+
+## Repository structure
+
+```text
+Bank-Loan-Prediction/
+├── loan_prediction_model.ipynb       # Original notebook with saved outputs
+├── loan_prediction_model.py          # Original script
+├── credit_risk_dataset.csv           # Original local dataset
+├── images/
+│   ├── confusion_matrix(SVM).png     # Original evaluation plot
+│   └── credit-risk-intelligence-banner.svg
+├── docs/                            # Evidence and technical references
+├── README.md
+└── LICENSE                          # Original MIT license
+```
+
+## Installation and reproduction
+
+For a dependency-free review, open the [saved notebook](loan_prediction_model.ipynb) on GitHub. For local inspection, the PowerShell example below uses an environment outside the checkout:
+
+```powershell
+git clone https://github.com/khaled-amireh/Bank-Loan-Prediction.git
+cd Bank-Loan-Prediction
+python -m venv "$env:TEMP\credit-risk-intelligence-venv"
+& "$env:TEMP\credit-risk-intelligence-venv\Scripts\python.exe" -m pip install numpy pandas matplotlib seaborn scikit-learn notebook ipykernel
+& "$env:TEMP\credit-risk-intelligence-venv\Scripts\python.exe" -m notebook loan_prediction_model.ipynb
+```
+
+The notebook metadata records **Python 3.11.9**. Exact dependency versions are **not pinned**, and no `requirements.txt` exists. This is an unpinned setup example; a fresh training run was not performed or verified during the documentation sprint. Run from the repository root so the relative CSV path resolves.
+
+The [reproduction guide](docs/reproduction.md) provides macOS/Linux commands, an import-to-package map, intentional script-execution instructions for a separate experimental checkout, and troubleshooting. Review the known preprocessing discrepancy before rerunning or saving the original notebook.
 
 ## Author and license
 
